@@ -13,7 +13,8 @@ async function run() {
         const rangeSize = new BABYLON.Vector2(6.0, 7.0);
 
         const hideLoadingScreen = function() {
-            document.getElementById("loadingScreen").style.display = "none";
+            const div = document.getElementById("loadingScreen");
+            div.parentNode.removeChild(div);
         }
         const gallery = new STUDIO.Gallery(
             canvas,
