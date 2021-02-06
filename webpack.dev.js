@@ -1,0 +1,28 @@
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+const path = require('path');
+const fs = require('fs');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+// App directory
+const appDirectory = fs.realpathSync(process.cwd());
+ 
+module.exports = merge(common, {
+    mode: 'development',
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: path.resolve(appDirectory, ""),
+        compress: true,
+        hot: true,
+        publicPath: '/',
+        open: true,
+        // host: '0.0.0.0', // enable to access from other devices on the network
+        https: true // enable when HTTPS is needed (like in WebXR)
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: path.resolve(appDirectory, "./local/index.html"),
+        }),
+    ]
+});
